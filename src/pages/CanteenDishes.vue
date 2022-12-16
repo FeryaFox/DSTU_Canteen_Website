@@ -30,7 +30,18 @@ export default {
       // let temp_ = {}
       let category_list = {}
 
+
+      let dish_info = []
+
       for (let i of this.dishes_info){
+        // console.log(this.$route.params.id)
+        console.log(i.canteen_id == this.$route.params.id)
+        if (i.canteen_id == this.$route.params.id){
+          dish_info.push(i)
+        }
+      }
+
+      for (let i of dish_info){
         if (typeof category_list[i.category] === "undefined") {
           category_list[i.category] = []
         }
@@ -39,7 +50,7 @@ export default {
         // }
       }
 
-      for (let i of this.dishes_info){
+      for (let i of dish_info){
         let temp_num = 1
         if (category_list[i.category].length > 0){
           temp_num = category_list[i.category][category_list[i.category].length-1].number + 1
@@ -64,8 +75,18 @@ export default {
     },
     dishes_category: function (){
       let category_list = []
+      let dish_info = []
 
       for (let i of this.dishes_info){
+        // console.log(this.$route.params.id)
+        console.log(i.canteen_id == this.$route.params.id)
+        if (i.canteen_id == this.$route.params.id){
+          dish_info.push(i)
+        }
+      }
+      console.log(dish_info)
+
+      for (let i of dish_info){
         if (!(category_list.includes(i.category))) {
           category_list.push(i.category)
         }
@@ -91,7 +112,7 @@ export default {
   // },
   async created(){
     try {
-      const r = await axios.get("http://127.0.0.1:8000/api/dish/?canteen_id="+this.$route.params.id)
+      const r = await axios.get("http://127.0.0.1:8000/api/dish/")
       this.dishes_info = r.data
     } catch (e) {
       console.log(e)
